@@ -98,6 +98,7 @@
 	\begin{flushleft}
 	Las fases del procesamiento del lenguaje son:
 	\begin{enumerate}
+		\item Procesamiento de textos
 		\begin{enumerate}
 			\item Expresiones regulares
 			\item Normalización
@@ -117,35 +118,99 @@
 	\begin{flushleft}
 		Existen 2 tipos de normalización:
 		\begin{itemize}
-			\item Normalización de textos: Proceso de transformación del texto para obtener una forma canónica. El objetivo es uniformizar la forma del texto para facilitar posteriores procesos
-			\item Normalización de palabras: Proceso de unificación de palabras que se refieren de distinta	forma a la misma entidad (forman una clase común)
+			\item Normalización de textos: Proceso de transformación del texto para obtener una forma canónica. El objetivo es uniformizar la forma del texto para facilitar posteriores procesos.
+			Técnicas comunes:
+			\begin{enumerate}
+				\item Normalización de la forma de las palabras
+				\item Tokenización de oraciones
+				\item Tokenización de palabras
+			\end{enumerate}
+			\item Normalización de palabras: Proceso de unificación de palabras que se refieren de distinta	forma a la misma entidad (forman una clase común).
+			Técnicas comunes:
+			\begin{enumerate}
+				\item Eliminar acentos
+				\item Quitar espacios repetidos
+				\item Reducir todas las palabras a minúsculas
+			\end{enumerate}
 		\end{itemize}
 	\end{flushleft}
 	\subsection{Distancia de edición}
 	\begin{flushleft}
+		La distancia de edición es la distancia mínima entre 2 cadenas para convertir una en la otra. Se usa para la correción de errores ortográficos, para extraer información, para traducir automáticamente, etc. \par 
+		Posee distintas operaciones:
+		\begin{itemize}
+			\item Inserción
+			\item Borrado
+			\item Sustitución
+		\end{itemize}
+		Se necesita explorar todas las combinaciones de	operación para seleccionar la de menor coste. Ejemplo: \par
+		\includegraphics[scale=0.5]{dedicion} \par
+		Si cada operación tiene coste 1: la distancia es 5. \par
+		Si la sustitución tiene coste 2, la distancia es 8
 	\end{flushleft}
 	\subsection{Palabras vacías}
 	\begin{flushleft}
+		Son palabras vacías aquellas sin significado propio: artículos, preposiciones, etc. Suelen ser las más frecuentes en un idioma. En muchos PLN se eliminan para centrar el análisis en palabras con contenido semántico.
 	\end{flushleft}
 	\subsection{Segmentación}
 	\begin{flushleft}
+		Se usa para romper cadenas de caracteres (grafemas) en secuencias de palabras.  Las claves para segmentar el texto son la puntuación (puntos, signos de interrogación y signos de exclamación). A veces se aborda junto
+		a la tokenización de palabras dado que los puntos pueden delimitar oraciones o marcar abreviaturas (se suelen usar diccionarios de abreviaturas para ayudar a saber de qué tipo de punto se trata).
 	\end{flushleft}
 	\subsection{Análisis morfológico}
 	\begin{flushleft}
+		La \textbf{morfológía} es el campo de la lingüística que estudia la estructura de las palabras. \par
+		Un \textbf{morfema} es la unidad lingüística más pequeña que tiene significado semántico. \par
+		El \textbf{análisis morfológico} es la tarea de segmentar una palabra en sus morfemas. \par
+		Los morfemas pueden ser \textbf{raices} y \textbf{afijos} (prefijos y sufijos). La raíz es el morfema principal que da significado a la palabra. El afijo añade significado adicional (número, género, tiempo verbal, etc). \par
+		perros → perr + o + s 
 	\end{flushleft}
 	\subsection{Stemming}
 	\begin{flushleft}
+		El proceso de \textbf{stemming} se refiere al proceso de eliminar la parte final de las palabras, que en muchas ocasiones es una aproximación a la lematización.
+		La \textbf{lematización} es el proceso de identificar el lema o forma canónica de una palabra (leíamos -> leer)
 	\end{flushleft}
 	\subsection{POS tagging}
 	\begin{flushleft}
+		El etiquetado gramatical o \textbf{Part-Of-Speech (POS) Tagging} es el proceso de etiquetar las palabras de una oración con su categoría léxica, en base a:
+		\begin{itemize}
+			\item Su definción
+			\item El contexto en la oración (las etiquetas y palabras que la rodean)
+		\end{itemize}
+		Este proceso es muy util para identificar entidades, desambiguar el sentido de las palabras, analisis sintáctico, etc. Se evalua mediante:
+		\begin{itemize}
+			\item La exactitud (accuracy): número de etiquetas acertadas sobre el número total de palabras etiquetadas
+			\item Precisión, cobertura y medida-F para cada tipo de	etiqueta del conjunto de etiquetas considerado
+		\end{itemize}
+		\includegraphics[scale=0.35]{evalpos} \par
 	\end{flushleft}
 	\subsection{Chunking}
 	\begin{flushleft}
+		Se trata del proceso de partir y etiquetar secuencias multipalabra (cada secuencia es un chunk). Uno de los más usados es el de las frases nominales (NP chunking)
 	\end{flushleft}
 	\subsection{Análisis sintáctico}
 	\begin{flushleft}
+		Tiene como objetivo identificar la estructura sintáctica de una oración (dependiendo del tipo de gramática considerada). Se usa en sistemas de extracción de información, sistemas de búsqueda de respuestas, etc. \par 
+		\includegraphics[scale=0.35]{sintac} \par
+	\end{flushleft}
+	\subsection{Análisis de constituyentes}
+	\begin{flushleft}
+		Una frase bien formada se puede descomponer en constituyentes de acuerdo a unas reglas gramaticales. Un analizador sintáctico de constituyentes es un programa que obtiene la estructura asociada a una frase respecto a una gramática. \par 
 	\end{flushleft}
 	\subsection{Desambiguación del sentido de las palabras}
 	\begin{flushleft}
+		Muchas palabras tienen más de un significado o sentido dependiendo del contexto en que se usan:
+		\begin{itemize}
+			\item Los pescadores encontraron un gran banco de sardinas
+			\item Tuve que ir al banco a sacar dinero
+			\item Nos sentamos en el banco hasta que llegó
+		\end{itemize}
+		La desambiguación del sentido de las palabras consiste en seleccionar el sentido (interpretación o significado) correcto de una ocurrencia de una palabra en un documento (o conversación) de entre todos los posibles de la palabra. \par 
+		Aplicaciones:
+		\begin{itemize}
+			\item Traducción automática: es necesaria las palabras que tienen diferentes traducciones para diferentes sentidos
+			\item Recuperación de información: es necesario desambiguar las	consultas: depresión puede hacer referencia una enfermedad, a una situación económica, etc.
+			\item Extracción de información: para la interpretación correcta de los textos. Drug puede hacer referencia a un medicamento o a una sustancia ilegal.
+		\end{itemize}
 	\end{flushleft}
 \end{document} % This is the end of the document
