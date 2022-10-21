@@ -1,6 +1,7 @@
 \documentclass{ctexart}
 \usepackage[spanish]{babel}
-
+\usepackage{graphicx}
+\graphicspath{{imgs/}}
 \title{Minería de textos} % Sets article title
 \author{Pelayo Martínez} % Sets authors name
 \date{\today} % Sets date for publication as date compiled
@@ -14,24 +15,137 @@
 	\section{Tema 1}
     La \textbf{minería de textos} es el proceso de analizar colecciones de textos para descubrir información y patrones que no aparecen de forma explícita en los textos.
     Engloba: 
-\begin{itemize}
-\item   \textbf{Extracción de información}: consiste en extraer automáticamente información estructurada a partir de textos.
-\item   \textbf{Recuperación de información}: consiste en buscar documentos, buscar información dentro de los documentos y en buscar metadatos que describan los documentos. Incluye la búsqueda en todo tipo de repositorios y bases de datos, tanto aisladas como conectadas en red
-\item   \textbf{Categorización}: consiste en asignar a un documento una o más categorías en función de su contenido. Las categorías con las que se hace la clasificación están definidas previamente.
-\item   \textbf{Agrupamiento de documentos}: es una forma de organización de documentos en grupos en la que ni la naturaleza de los grupos, ni en ocasiones su número están definidos de antemano
-\end{itemize}
-    
- \begin{flushleft}
-La minería de textos se aplica a colecciones de documentos con información textual no estructurada y escrita en lenguaje natural. Esta información normalmente conforma documentos que pueden agruparse en colecciones o corpus.  Se utilizan principalmente técnicas de procesamiento del lenguaje natural y de aprendizaje automático.
-\end{flushleft}
-\begin{flushleft}
-\textbf{Procesamiento del lenguaje natural (PLN)}: rama de la informática cuyo objetivo es el desarrollo de sistemas que permitan a los ordenadores comunicarse con personas utilizando el lenguaje humano. Se utiliza para adquirir conocimientos a partir de cantidades masivas de datos textuales (generar resumenes, sistemas de dialogo, etc). 
-\end{flushleft}
-Es difícil porque:
+	\begin{itemize}
+	\item   \textbf{Extracción de información}: consiste en extraer automáticamente información estructurada a partir de textos.
+	\item   \textbf{Recuperación de información}: consiste en buscar documentos, buscar información dentro de los documentos y en buscar metadatos que describan los documentos. Incluye la búsqueda en todo tipo de repositorios y bases de datos, tanto aisladas como conectadas en red
+	\item   \textbf{Categorización}: consiste en asignar a un documento una o más categorías en función de su contenido. Las categorías con las que se hace la clasificación están definidas previamente.
+	\item   \textbf{Agrupamiento de documentos}: es una forma de organización de documentos en grupos en la que ni la naturaleza de los grupos, ni en ocasiones su número están definidos de antemano
+	\end{itemize}
+		
+	\begin{flushleft}
+	La minería de textos se aplica a colecciones de documentos con información textual no estructurada y escrita en lenguaje natural. Esta información normalmente conforma documentos que pueden agruparse en colecciones o corpus.  Se utilizan principalmente técnicas de procesamiento del lenguaje natural y de aprendizaje automático.
+	\end{flushleft}
+	\begin{flushleft}
+	\textbf{Procesamiento del lenguaje natural (PLN)}: rama de la informática cuyo objetivo es el desarrollo de sistemas que permitan a los ordenadores comunicarse con personas utilizando el lenguaje humano. Se utiliza para adquirir conocimientos a partir de cantidades masivas de datos textuales (generar resumenes, sistemas de dialogo, etc). 
+	\end{flushleft}
+	Es difícil porque:
 
-\begin{itemize}
-\item Alta ambigüedad a todos los niveles (léxico, sintáctico, semántico y de discursos): El entendimiento del lenguaje permite evitar estas ambigüedades.
-\item Ciertos aspectos intervienen en la interpretación (saber si se niega la información, si es especulativa, expresiones que hacen referencia a una misma cosa, etc)
-\end{itemize}
+	\begin{itemize}
+	\item Alta ambigüedad a todos los niveles (léxico, sintáctico, semántico y de discursos): El entendimiento del lenguaje permite evitar estas ambigüedades.
+	\item Ciertos aspectos intervienen en la interpretación (saber si se niega la información, si es especulativa, expresiones que hacen referencia a una misma cosa, etc)
+	\end{itemize}
 
+	\subsection{Evaluación de tareas de PLN}
+	Para evaluar datos de los modelos es necesario comparar modelos y sistemas (sobre sorpus o colecciones comunes o bien usando las mismas medidas)
+	Un \textbf{corpus} es una compilación de textos en formato electrónico. Son fundamentales para el desarrollo de aplicaciones basadas en PLN, ya que permiten evaluar sistemas y entrenan sistemas de aprendizaje automático.
+	Son muestras amplias y naturales del lenguaje y a su vez fuente de datos estadísticos sobre palabras, relaciones y construcciones.
+	Hay 2 tipos de corpus:
+	\begin{itemize}
+		\item \textbf{Sin anotar}: Texto puro
+		\item \textbf{Anotados}: Marcados con información lingüística (se les conoce como \textit{Gold standard} y se usan de referencia)
+	\end{itemize}
+	También cabe destacar la distinción respecto al contenido:
+	\begin{itemize}
+		\item \textbf{Paralelos}: Mismos textos en distintos idiomas
+		\item \textbf{Comparables}: Contienen un número equilibrado (en cuanto al tema y al tipo) de textos en distintos idiomas
+	\end{itemize}
+	\textbf{Campañas de evaluación}: Proponen retos a los participantes, proporcionando datos y un marco de evaluación común y bien definido.
+	\begin{itemize}
+		\item \textbf{TREC}: Evaluan metodologías de recuperación de textos a gran escala.
+		\item \textbf{CLEF}: Promueven la investigación y desarrollo de sistemas de acceso a información.
+		\item \textbf{Semeval}: Evaluan sistemas de análisis semántico.
+		\item \textbf{Iberval/Iberlef}: Organizan campañas de evaluación en castellano y otras lenguas ibéricas.
+	\end{itemize}
+	\subsection{Medidas de evaluación más habituales}
+	\begin{flushleft}
+		\textbf{Precisión}: Fracción de predicciones del modelo propuesto acertadas (coinciden con los datos de referencia)\par
+		\begin{displaymath}
+		p = \frac{tp}{tp+fp} 
+		\end{displaymath}
+		*donde tp: true positive y fp: false positive\par
+		\textbf{Cobertura o exhaustividad (recall)}: Fracción de los datos de referencia que han sido propuestas por el modelo evaluado\par
+		\begin{displaymath}
+		r = \frac{tp}{tp+fn} 
+		\end{displaymath}
+		*donde fn: false negative\par
+		\textbf{Medida-F}: Media armónica de precisión y cobertura\par
+		\begin{displaymath}
+		Medida-F = \frac{2 \cdot p \cdot r}{p+r} 
+		\end{displaymath}\par
+		\textbf{Medida-F}β: Forma general de la media armónica que permite dar más importancia a la precisión o a la cobertura en función del parámetro β. \par
+		\begin{displaymath}
+		Medida-F_{\beta}  = (1+\beta^2) \frac{p \cdot r}{\beta^2 \cdot p + r} 
+		\end{displaymath}
+		\includegraphics[scale=0.75]{medidas}
+	\end{flushleft}
+	\subsection{Baseline}
+	\begin{flushleft}
+		La baseline es la medida de los resultados de un modelo básico que resuelve la tarea. Es importante tener una referencia para saber qué niveles de las medidas se consideran aceptables.
+		Ejemplo:
+		\begin{itemize}
+			\item Tarea: asignar el significado correcto a una palabra ambigua en el contexto de un documento.
+			\item Baseline: asignar el significado más frecuente de la palabra.	Se espera que cualquier otro modelo propuesto supere la baseline
+		\end{itemize}
+	\end{flushleft}
+	\subsection{Análisis de errores}
+	\begin{flushleft}
+		Permite encontrar errores en los programas, en los datos de entrenamiento y es fundamental para desarrollar nuevos modelos de conocimiento o algoritmos de resolución de problemas.
+		Las \textbf{matrices de confusión} se utilizan para analizar errores en los clasificadores. Una matriz de confusión para una tarea de clasificación de N clases es una matriz de NxN
+		donde la celda(x,y) contiene el número de veces que un elemento con la clasificación correcta x fue clasificado por el modelo como y.
+		\includegraphics[scale=0.75]{errores}
+	\end{flushleft}
+	\subsection{Introducción al procesamiento del lenguaje natural}
+	\begin{flushleft}
+	Las fases del procesamiento del lenguaje son:
+	\begin{enumerate}
+		\begin{enumerate}
+			\item Expresiones regulares
+			\item Normalización
+			\item Distancia de edición
+		\end{enumerate}
+		\item POS tagging
+		\item Stemming
+		\item Chunking
+		\item Desambiguación del sentido de las palabras
+	\end{enumerate}
+	\end{flushleft}
+	\subsection{Expresiones regulares}
+	\begin{flushleft}
+		Las expresiones regulares son un lenguaje formal para especificar patrones de texto.
+	\end{flushleft}
+	\subsection{Normalización}
+	\begin{flushleft}
+		Existen 2 tipos de normalización:
+		\begin{itemize}
+			\item Normalización de textos: Proceso de transformación del texto para obtener una forma canónica. El objetivo es uniformizar la forma del texto para facilitar posteriores procesos
+			\item Normalización de palabras: Proceso de unificación de palabras que se refieren de distinta	forma a la misma entidad (forman una clase común)
+		\end{itemize}
+	\end{flushleft}
+	\subsection{Distancia de edición}
+	\begin{flushleft}
+	\end{flushleft}
+	\subsection{Palabras vacías}
+	\begin{flushleft}
+	\end{flushleft}
+	\subsection{Segmentación}
+	\begin{flushleft}
+	\end{flushleft}
+	\subsection{Análisis morfológico}
+	\begin{flushleft}
+	\end{flushleft}
+	\subsection{Stemming}
+	\begin{flushleft}
+	\end{flushleft}
+	\subsection{POS tagging}
+	\begin{flushleft}
+	\end{flushleft}
+	\subsection{Chunking}
+	\begin{flushleft}
+	\end{flushleft}
+	\subsection{Análisis sintáctico}
+	\begin{flushleft}
+	\end{flushleft}
+	\subsection{Desambiguación del sentido de las palabras}
+	\begin{flushleft}
+	\end{flushleft}
 \end{document} % This is the end of the document
