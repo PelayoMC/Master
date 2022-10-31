@@ -23,3 +23,11 @@ Debemos cambiar donde pone _namecode_ por uno de los nombres de los nodos esclav
 ```powershell
 docker-compose -f nombrefichero.yml down
 ```
+
+## Ejecutar en un cluster
+
+```powershell
+docker exec -it namenode bash
+```
+
+Donde está _namenode_ podemos poner el nombre de cualquier contenedor
