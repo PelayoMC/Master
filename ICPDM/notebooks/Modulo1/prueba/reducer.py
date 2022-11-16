@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+# coding=utf-8
 import sys
 	
 curr_word = None
@@ -18,7 +20,7 @@ for line in sys.stdin:
     curr_count += count
   else:
     if curr_word:   
-      print (f"{curr_word}\t{curr_count}")
+      print '%s\t%s' % (curr_word, curr_count)
 			
     #Actualizamos las variables a la nueva palabra
     curr_word = word
@@ -26,4 +28,4 @@ for line in sys.stdin:
 	
 #Imprimimos la última palabra
 if curr_word == word:
-    print (f"{curr_word}\t{curr_count}")
+  print '%s\t%s' % (curr_word, curr_count)
